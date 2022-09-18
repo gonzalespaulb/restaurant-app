@@ -1,11 +1,8 @@
 import './App.css';
+import RestaurantApp from './RestaurantApp/RestaurantApp';
 
 function App() {
-  return (
-    <div className="App">
-      
-    </div>
-  );
+  return <RestaurantApp/>;
 }
 
 export default App;

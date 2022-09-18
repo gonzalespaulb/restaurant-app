@@ -1,4 +1,5 @@
 import Navigation from "./Navigation/Navigation";
+import Menu from "./Menu/Menu";
 import { Content, MainContainer } from "./styles";
 
 const RestaurantApp = () => {
@@ -7,7 +8,9 @@ const RestaurantApp = () => {
       <Navigation />
 
       {/* Router here */}
-      <Content/>
+      <Content>
+        <Menu/>
+      </Content>
     </MainContainer>
   );
 };

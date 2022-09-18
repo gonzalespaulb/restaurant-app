@@ -50,11 +50,13 @@ app.get("/newOrder", async (req, res) => {
         foodName: "Chicken Sandwich",
         price: 5.99,
         description: "Chicken so good you'll grow wings.",
+        quantity: 2,
       },
       {
         foodName: "Hickory Burger",
         price: 7.99,
         description: "Doused with our super secret BBQ sauce.",
+        quantity: 5,
       },
     ],
     status: "Received",

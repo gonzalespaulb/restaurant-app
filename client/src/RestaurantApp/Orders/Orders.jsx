@@ -1,7 +1,9 @@
+import { MainContainer } from "./styles";
+
+
 const Orders = () => {
-    return <div>
+    return <MainContainer>
 
-    </div>
+    </MainContainer>
 }
-
-export default Orders;
+export default Orders; 

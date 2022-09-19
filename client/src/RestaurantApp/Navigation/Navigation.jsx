@@ -1,9 +1,13 @@
 import { MainContainer, PageLinks } from "./styles"
+import { useNavigate } from "react-router-dom";
 
 const Navigation = () => {
+
+    let navigate = useNavigate();
+
     return <MainContainer>
-        <PageLinks>Menu</PageLinks>
-        <PageLinks>Orders</PageLinks>
+        <PageLinks onClick={() => navigate("/")}>Menu</PageLinks>
+        <PageLinks  onClick={() => navigate("/orders")}>Orders</PageLinks>
     </MainContainer>
 }
 

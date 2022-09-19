@@ -1,8 +1,13 @@
-import './App.css';
-import RestaurantApp from './RestaurantApp/RestaurantApp';
+import "./App.css";
+import RestaurantApp from "./RestaurantApp/RestaurantApp";
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
-  return <RestaurantApp/>;
+  return (
+    <BrowserRouter>
+      <RestaurantApp />
+    </BrowserRouter>
+  );
 }
 
 export default App;

@@ -1,17 +1,24 @@
+import { Routes, Route, useLocation } from "react-router-dom";
 import Navigation from "./Navigation/Navigation";
 import Menu from "./Menu/Menu";
+import Orders from "./Orders/Orders";
 import { Content, MainContainer } from "./styles";
 
 const RestaurantApp = () => {
-  return (
-    <MainContainer>
-      <Navigation />
+  const location = useLocation();
 
-      {/* Router here */}
-      <Content>
-        <Menu/>
-      </Content>
-    </MainContainer>
+  return (
+    
+      <MainContainer>
+        <Navigation />
+        <Content>
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={<Menu />} />
+            <Route path="/orders" element={<Orders />} />
+          </Routes>
+        </Content>
+      </MainContainer>
+    
   );
 };
 

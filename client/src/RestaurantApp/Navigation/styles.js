@@ -19,7 +19,7 @@ export const PageLinks = styled.span`
     border-radius: 10px;
 
     :not(:last-child) {
-        margin-right: 32px;
+        margin-right: 10px;
     }
 
     :hover {

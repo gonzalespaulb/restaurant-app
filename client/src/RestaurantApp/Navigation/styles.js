@@ -8,6 +8,7 @@ export const MainContainer = styled.div`
     position: sticky;
     top: 0;
     border-bottom: 2px dashed #000;
+    z-index: 20;
 `;
 
 export const PageLinks = styled.span`

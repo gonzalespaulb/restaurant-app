@@ -81,6 +81,7 @@ export const SubmitBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 
 export const SubmitText = styled.h3`

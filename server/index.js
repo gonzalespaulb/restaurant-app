@@ -24,12 +24,15 @@ app.listen(3001, () => {
   console.log(`Server running on port 3001.`);
 });
 
-app.get("/newFood", async (req, res) => {
+app.post("/newFood", async (req, res) => {
+
+  const {name, price, description} = req.body;
+
   try {
     const food = new FoodModel({
-      name: "Spamusubi",
-      price: 1.00,
-      description: "Fresh out of the islands, this food is for everyone.",
+      name,
+      price,
+      description,
     });
 
     await food.save();

@@ -1,16 +1,16 @@
 const mongoose = require("mongoose");
 const  Schema = mongoose.Schema;
-const {ObjectId} = mongoose.Schema; 
+const { ObjectId } = mongoose.Schema; 
 
 
 const OrderSchema = new Schema({
   customerInfo: {
     name: String,
     phoneNumber: String,
-  },
+  }, 
   order: [
     {
-      food: {
+      item: {
         type: ObjectId, 
         ref: "food"
       },
@@ -20,6 +20,13 @@ const OrderSchema = new Schema({
     },
   ],
   status: String,
+}, {
+  toJSON: {
+    virtuals: true,
+  }, 
+  toObject: {
+    virtuals: true,
+  }
 });
 
 const Order = mongoose.model("order", OrderSchema);

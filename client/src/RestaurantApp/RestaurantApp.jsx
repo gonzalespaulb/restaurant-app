@@ -3,17 +3,21 @@ import Navigation from "./Navigation/Navigation";
 import Menu from "./Menu/Menu";
 import Orders from "./Orders/Orders";
 import { Content, MainContainer } from "./styles";
+import { useState } from "react";
 
 const RestaurantApp = () => {
+
+  const [openCart, setOpenCart] = useState(false);
+
   const location = useLocation();
 
   return (
     
       <MainContainer>
-        <Navigation />
+        <Navigation openCart={openCart} setOpenCart={setOpenCart}/>
         <Content>
           <Routes location={location} key={location.pathname}>
-            <Route path="/" element={<Menu />} />
+            <Route path="/" element={<Menu openCart={openCart}/>} />
             <Route path="/orders" element={<Orders />} />
           </Routes>
         </Content>

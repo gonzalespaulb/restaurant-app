@@ -17,7 +17,7 @@ export const CardContainer = styled.div`
 export const Sidebar = styled.div`
   background: #fefae0;
   border-radius: 10px;
-  height: calc(100vh - 130px);
+  height: calc(100vh - 130px); 
   position: sticky;
   top: 110px;
   border: 2px dashed #000;
@@ -29,8 +29,21 @@ export const Card = styled.div`
   border-radius: 10px;
   transition: border 0.2s ease;
   border: 2px dashed #000;
+  padding: 20px;
 
   :hover {
     border: 4px dashed #000;
   }
+`;
+
+export const Title = styled.h1`
+
+`;
+
+export const Price = styled.h2`
+
+`;
+
+export const Description = styled.p`
+
 `;

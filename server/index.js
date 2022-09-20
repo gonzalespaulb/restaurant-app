@@ -18,20 +18,20 @@ mongoose.connect(
   {
     useNewUrlParser: true,
   }
-);
+); 
 
 app.listen(3001, () => {
   console.log(`Server running on port 3001.`);
 });
 
 app.get("/newFood", async (req, res) => {
-  const food = new FoodModel({
-    foodName: "Hickory Burger",
-    price: 7.99,
-    description: "Doused with our super secret BBQ sauce.",
-  });
-
   try {
+    const food = new FoodModel({
+      name: "Spamusubi",
+      price: 1.00,
+      description: "Fresh out of the islands, this food is for everyone.",
+    });
+
     await food.save();
     res.send(food);
   } catch (err) {
@@ -40,29 +40,25 @@ app.get("/newFood", async (req, res) => {
 });
 
 app.get("/newOrder", async (req, res) => {
-  const order = new OrderModel({
-    customerInfo: {
-      name: "Paul Gonzales",
-      phoneNumber: "555-555-5555",
-    },
-    order: [
+  try {
+    const foods = [
       {
-        foodName: "Chicken Sandwich",
-        price: 5.99,
-        description: "Chicken so good you'll grow wings.",
+        item: {
+          _id: '63290c58a3551e8d019c3ec9'
+        },
         quantity: 2,
       },
-      {
-        foodName: "Hickory Burger",
-        price: 7.99,
-        description: "Doused with our super secret BBQ sauce.",
-        quantity: 5,
-      },
-    ],
-    status: "Received",
-  });
+    ];
 
-  try {
+    const order = new OrderModel({
+      customerInfo: {
+        name: "Paul Gonzales",
+        phoneNumber: "555-555-5555",
+      },
+      order: foods,
+      status: "Received",
+    });
+
     await order.save();
     res.send(order);
   } catch (err) {
@@ -71,19 +67,21 @@ app.get("/newOrder", async (req, res) => {
 });
 
 app.get("/foods", async (req, res) => {
-  FoodModel.find({}, (err, result) => {
-    if (err) {
-      res.send(err);
-    }
-    res.send(result);
-  });
+  try {
+    const foods = await FoodModel.find({});
+    res.send(foods);
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 app.get("/orders", async (req, res) => {
-  OrderModel.find({}, (err, result) => {
-    if (err) {
-      res.send(err);
-    }
-    res.send(result);
-  });
+
+  try {
+    const orders = await OrderModel.find({}).populate("order.item");
+
+    res.send(orders);
+  } catch (err) {
+    console.log(err);
+  }
 });

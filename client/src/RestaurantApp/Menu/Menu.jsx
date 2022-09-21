@@ -1,10 +1,20 @@
-import { Card, CardContainer, Description, MainContainer, Price, Sidebar, Title } from "./styles";
+import {
+  CardContainer,
+  ItemContent,
+  MainContainer,
+  PlaceOrderBtn,
+  PlaceOrderText,
+  Sidebar,
+  SidebarItem,
+  SidebarItemContainer,
+} from "./styles";
 import { useState, useEffect } from "react";
 import Axios from "axios";
+import Card from "./Card";
 
-const Menu = () => {
-  const [openSidebar, setOpenSidebar] = useState(false);
+const Menu = ({ openCart }) => {
   const [allFoods, setAllFoods] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
 
   const fetchFoods = () => {
     Axios.get("http://localhost:3001/foods").then((res) => {
@@ -18,23 +28,40 @@ const Menu = () => {
 
   const menu = allFoods.data;
 
-
   const renderMenu = () => {
-    return menu?.map((food) => {
-      return <Card onClick={() => setOpenSidebar(!openSidebar)}>
-          <Title>{food.name}</Title>
-          <Price>{food.price}</Price>
-          <Description>{food.description}</Description>
-        </Card>;
+    return menu?.map((food, i) => {
+      return (
+        <Card
+          food={food}
+          key={i}
+          cartItems={cartItems}
+          setCartItems={setCartItems}
+        />
+      );
+    });
+  };
+
+  const renderSidebarItems = () => {
+    return cartItems.map((item, i) => {
+      return (
+        <SidebarItem key={i}>
+          <ItemContent>{item.foodObj.name}</ItemContent>
+          <ItemContent>${item.foodObj.price}</ItemContent>
+          <ItemContent>{item.quantity}</ItemContent>
+        </SidebarItem>
+      );
     });
   };
 
   return (
-    <MainContainer openSidebar={openSidebar}>
-      <CardContainer>
-        {renderMenu()}
-      </CardContainer>
-      <Sidebar />
+    <MainContainer openCart={openCart}>
+      <CardContainer>{renderMenu()}</CardContainer>
+      <Sidebar openCart={openCart}>
+        <SidebarItemContainer>{renderSidebarItems()}</SidebarItemContainer>
+        <PlaceOrderBtn>
+          <PlaceOrderText>Place Order</PlaceOrderText>
+        </PlaceOrderBtn>
+      </Sidebar>
     </MainContainer>
   );
 };

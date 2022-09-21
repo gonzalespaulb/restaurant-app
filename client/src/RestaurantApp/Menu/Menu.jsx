@@ -1,23 +1,20 @@
 import {
-  AddToCartBtn,
-  AddToCartText,
-  Card,
   CardContainer,
-  Description,
+  ItemContent,
   MainContainer,
-  Price,
-  Quantity,
-  QuantityContainer,
+  PlaceOrderBtn,
+  PlaceOrderText,
   Sidebar,
-  Title,
+  SidebarItem,
+  SidebarItemContainer,
 } from "./styles";
 import { useState, useEffect } from "react";
 import Axios from "axios";
+import Card from "./Card";
 
 const Menu = ({ openCart }) => {
   const [allFoods, setAllFoods] = useState([]);
   const [cartItems, setCartItems] = useState([]);
-  const [currItemQuantity, setCurrItemQuantity] = useState("");
 
   const fetchFoods = () => {
     Axios.get("http://localhost:3001/foods").then((res) => {
@@ -31,32 +28,27 @@ const Menu = ({ openCart }) => {
 
   const menu = allFoods.data;
 
-  const addToCart = (foodObj, quantity) => {
-
-    const newCartItem = {
-      foodObj, 
-      quantity, 
-    }
-
-    setCartItems([...cartItems, newCartItem]);
-  }
-
-  console.log(cartItems);
-
   const renderMenu = () => {
     return menu?.map((food, i) => {
       return (
-        <Card key={i}>
-          <Title>{food.name}</Title>
-          <Price>{food.price}</Price>
-          <Description>{food.description}</Description>
-          <QuantityContainer>
-            <Quantity onChange={(e) => setCurrItemQuantity(e.target.value)} value={currItemQuantity}></Quantity>
-            <AddToCartBtn onClick={() => addToCart(food, currItemQuantity)}>
-              <AddToCartText>Add to Cart</AddToCartText>
-            </AddToCartBtn>
-          </QuantityContainer>
-        </Card>
+        <Card
+          food={food}
+          key={i}
+          cartItems={cartItems}
+          setCartItems={setCartItems}
+        />
+      );
+    });
+  };
+
+  const renderSidebarItems = () => {
+    return cartItems.map((item, i) => {
+      return (
+        <SidebarItem key={i}>
+          <ItemContent>{item.foodObj.name}</ItemContent>
+          <ItemContent>${item.foodObj.price}</ItemContent>
+          <ItemContent>{item.quantity}</ItemContent>
+        </SidebarItem>
       );
     });
   };
@@ -64,7 +56,12 @@ const Menu = ({ openCart }) => {
   return (
     <MainContainer openCart={openCart}>
       <CardContainer>{renderMenu()}</CardContainer>
-      <Sidebar />
+      <Sidebar openCart={openCart}>
+        <SidebarItemContainer>{renderSidebarItems()}</SidebarItemContainer>
+        <PlaceOrderBtn>
+          <PlaceOrderText>Place Order</PlaceOrderText>
+        </PlaceOrderBtn>
+      </Sidebar>
     </MainContainer>
   );
 };

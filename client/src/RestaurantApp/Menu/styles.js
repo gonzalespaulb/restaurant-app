@@ -21,9 +21,53 @@ export const Sidebar = styled.div`
   position: sticky;
   top: 110px;
   border: 2px dashed #000;
+  padding: ${(props) => props.openCart ? "10px" : "0px"};
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
 `;
 
-export const Card = styled.div`
+export const SidebarItemContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 10px;
+  grid-auto-rows: minmax(min-content, max-content);
+  width: 100%;
+  overflow: auto;
+  flex: 1;
+`;
+
+export const SidebarItem = styled.div`
+  background: #FAECCC;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+`;
+
+export const ItemContent = styled.span`
+  font-size: 16px;
+  font-weight: bold;
+`;
+
+export const PlaceOrderBtn = styled.div`
+  padding: 32px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+  cursor: pointer;
+`;
+
+export const PlaceOrderText = styled.h3`
+  font-size: 16px;
+  line-height: 16px;
+  color: #fefae0;
+`;
+
+export const FoodCard = styled.div`
   background: #fefae0;
   border-radius: 10px;
   transition: border 0.2s ease;

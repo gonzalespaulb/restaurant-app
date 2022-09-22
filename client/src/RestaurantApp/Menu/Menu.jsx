@@ -22,6 +22,27 @@ const Menu = ({ openCart }) => {
     });
   };
 
+  const sendCart = () => {
+    const orders = cartItems.map((order) => {
+      const payload = {
+        item: {
+          _id: order.foodObj._id,
+        },
+        quantity: +order.quantity,
+      };
+
+      return payload;
+    });
+
+   Axios.post("http://localhost:3001/newOrder", orders )
+      .then((res) => {
+        console.log(res.status);
+      })
+      .then((err) => console.log(err));
+
+      setCartItems([]);
+  };
+
   useEffect(() => {
     fetchFoods();
   }, []);
@@ -58,7 +79,7 @@ const Menu = ({ openCart }) => {
       <CardContainer>{renderMenu()}</CardContainer>
       <Sidebar openCart={openCart}>
         <SidebarItemContainer>{renderSidebarItems()}</SidebarItemContainer>
-        <PlaceOrderBtn>
+        <PlaceOrderBtn onClick={sendCart}>
           <PlaceOrderText>Place Order</PlaceOrderText>
         </PlaceOrderBtn>
       </Sidebar>

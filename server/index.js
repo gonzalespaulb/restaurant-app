@@ -18,7 +18,7 @@ mongoose.connect(
   {
     useNewUrlParser: true,
   }
-); 
+);  
 
 app.listen(3001, () => {
   console.log(`Server running on port 3001.`);
@@ -42,23 +42,17 @@ app.post("/newFood", async (req, res) => {
   }
 });
 
-app.get("/newOrder", async (req, res) => {
+app.post("/newOrder", async (req, res) => {
   try {
-    const foods = [
-      {
-        item: {
-          _id: '63290c58a3551e8d019c3ec9'
-        },
-        quantity: 2,
-      },
-    ];
+
+    const orders  = req.body;
 
     const order = new OrderModel({
       customerInfo: {
         name: "Paul Gonzales",
         phoneNumber: "555-555-5555",
       },
-      order: foods,
+      order: orders,
       status: "Received",
     });
 

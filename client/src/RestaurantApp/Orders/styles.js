@@ -4,7 +4,7 @@ import close from "./assets/close.svg";
 export const MainContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  grid-auto-rows: 200px;
+  grid-auto-rows: minmax(200px, max-content);
   grid-gap: 10px;
   position: relative;
 `;
@@ -17,6 +17,7 @@ export const Card = styled.div`
   padding-left: 40px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 `;
 
 export const AddNewContainer = styled.div`
@@ -115,3 +116,18 @@ export const OrderNumber = styled.span`
   line-height: 48px;
   font-weight: bold;
 `;
+
+export const ItemsContainer = styled.div`
+  height: 100%;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+`;
+
+export const Item = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+

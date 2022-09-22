@@ -10,8 +10,10 @@ import {
   InputLine,
   SubmitBtn,
   SubmitText,
+  ItemsContainer,
+  Item,
 } from "./styles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Axios from "axios";
 import { Card } from "./styles";
 
@@ -20,6 +22,17 @@ const Orders = () => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
+  const [allOrders, setAllOrders] = useState([]);
+
+  const fetchOrders = () => {
+    Axios.get("http://localhost:3001/orders").then((res) => {
+      setAllOrders(res);
+    });
+  };
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
 
   const clearFields = () => {
     setName("");
@@ -41,29 +54,33 @@ const Orders = () => {
     clearFields();
   };
 
+  const orders = allOrders.data;
+
+  const renderOrders = () => {
+    return orders?.map((order, i) => {
+      const renderItems = () => {
+        return order.order.map((item) => {
+          return (
+            <Item>
+              <span>{item.item.name}</span>
+              <span>x{item.quantity}</span>
+            </Item>
+          );
+        });
+      };
+
+      return (
+        <Card key={i}>
+          <OrderNumber>#{i}</OrderNumber>
+          <ItemsContainer>{renderItems()}</ItemsContainer>
+        </Card>
+      );
+    });
+  };
+
   return (
     <MainContainer>
-      <Card>
-        <OrderNumber>#1</OrderNumber>
-      </Card>
-      <Card>
-        <OrderNumber>#2</OrderNumber>
-      </Card>
-      <Card>
-        <OrderNumber>#3</OrderNumber>
-      </Card>
-      <Card>
-        <OrderNumber>#4</OrderNumber>
-      </Card>
-      <Card>
-        <OrderNumber>#5</OrderNumber>
-      </Card>
-      <Card>
-        <OrderNumber>#6</OrderNumber>
-      </Card>
-      <Card>
-        <OrderNumber>#7</OrderNumber>
-      </Card>
+      {renderOrders()}
       <NewFoodForm createNew={createNew}>
         <CloseBtn onClick={() => setCreateNew(false)}></CloseBtn>
         <FormItem>

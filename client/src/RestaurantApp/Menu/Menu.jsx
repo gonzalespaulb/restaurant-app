@@ -39,6 +39,8 @@ const Menu = ({ openCart }) => {
         console.log(res.status);
       })
       .then((err) => console.log(err));
+
+      setCartItems([]);
   };
 
   useEffect(() => {

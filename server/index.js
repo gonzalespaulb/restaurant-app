@@ -29,3 +29,4 @@ app.post('/newFood', require('./routes/foodRoutes.js'));
 app.get('/foods', require('./routes/foodRoutes.js'));
 
 app.post('/newUser', require('./routes/userRoutes.js'));
+app.post('/login', require('./routes/userRoutes.js'));

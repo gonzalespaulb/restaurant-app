@@ -41,20 +41,25 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
-// const registerUser = async (req, res) => {
-//   try {
-//     res.json({ message: "hello there" });
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
+const loginUser = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
 
-// const loginUser = asyncHandler(async (req, res) => {
+  const user = await User.findOne({ email })
 
-// });
+  if (user && (await bcrypt.compare(password, user.password))) {
+    res.json({
+      _id: user.id,
+      name: user.name,
+      email: user.email,
+    })
+  } else {
+    res.status(400)
+    throw new Error('Invalid credentials')
+  }
+});
 
 // const getMe = asyncHandler(async (req, res) => {
 
 // });
 
-module.exports = { registerUser };
+module.exports = { registerUser, loginUser };

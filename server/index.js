@@ -5,6 +5,7 @@ const cors = require("cors");
 require("dotenv").config();
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
 const DB_PASS = `${process.env.DB_PASS}`;
@@ -26,3 +27,5 @@ app.get('/orders', require('./routes/orderRoutes.js'));
 
 app.post('/newFood', require('./routes/foodRoutes.js'));
 app.get('/foods', require('./routes/foodRoutes.js'));
+
+app.post('/newUser', require('./routes/userRoutes.js'));

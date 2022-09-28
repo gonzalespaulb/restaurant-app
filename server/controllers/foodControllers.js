@@ -12,7 +12,7 @@ const createNewFood = async (req, res) => {
 
     await food.save();
     res.send(food);
-  } catch (err) {
+  } catch (err) { 
     console.log(err);
   }
 };

@@ -22,7 +22,8 @@ const registerUser = asyncHandler(async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   const hashedPass = await bcrypt.hash(password, salt);
 
-  //   Create User
+  //NOTE -------------------------   CREATE USER
+  
   const user = await User.create({
     name,
     email,
@@ -34,12 +35,15 @@ const registerUser = asyncHandler(async (req, res) => {
       _id: user.id,
       name: user.name,
       email: user.email,
+      token: generateToken(user._id),
     });
   } else {
     res.status(400);
     throw new Error("Invalid user data");
   }
 });
+
+//NOTE -------------------------   LOGIN USER
 
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
@@ -51,12 +55,19 @@ const loginUser = asyncHandler(async (req, res) => {
       _id: user.id,
       name: user.name,
       email: user.email,
+      token: generateToken(user._id),
     })
   } else {
     res.status(400)
-    throw new Error('Invalid credentials')
+    throw new Error('Invalid credentials') 
   }
 });
+
+const generateToken = (id) => {
+  return jwt.sign({id}, process.env.JWT_SECRET, {
+    expiresIn: '30d',
+  })
+}
 
 // const getMe = asyncHandler(async (req, res) => {
 

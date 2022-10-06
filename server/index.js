@@ -9,7 +9,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
 const DB_PASS = `${process.env.DB_PASS}`;
-const DB_NAME = `${process.env.DB_NAME}`;
+const DB_NAME = `${process.env.DB_NAME}`; 
 
 mongoose.connect(
   `mongodb+srv://paulgonzales:${DB_PASS}@restaurantapp.yy8bkbx.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`,

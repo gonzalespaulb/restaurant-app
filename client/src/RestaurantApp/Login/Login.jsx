@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Axios from "axios";
+import { useNavigate } from "react-router-dom";
 import {
   InputLabel,
   LoginBox,
@@ -10,6 +11,8 @@ import {
 } from "./styles";
 
 const Login = () => {
+  let navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -22,7 +25,6 @@ const Login = () => {
   if (currentToken) {
     headers.Authorization = `Bearer ${currentToken}`;
   }
-
 
   const checkCredentials = () => {
     Axios.post(
@@ -38,6 +40,8 @@ const Login = () => {
       .then((res) => {
         localStorage.setItem("tolkien", res.data.token);
         console.log(res);
+
+        navigate("/orders");
       })
       .then((err) => {
         console.error(err);

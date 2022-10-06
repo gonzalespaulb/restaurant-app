@@ -1,15 +1,16 @@
-import { MainContainer, PageLinks } from "./styles"
+import { MainContainer, PageLinks } from "./styles";
 import { useNavigate } from "react-router-dom";
 
-const Navigation = ({openCart, setOpenCart}) => {
+const Navigation = ({ openCart, setOpenCart }) => {
+  let navigate = useNavigate();
 
-    let navigate = useNavigate();
-
-    return <MainContainer>
-        <PageLinks onClick={() => navigate("/")}>Menu</PageLinks>
-        <PageLinks  onClick={() => navigate("/orders")}>Orders</PageLinks>
-        <PageLinks onClick={() => setOpenCart(!openCart)}>Cart</PageLinks>
+  return (
+    <MainContainer>
+      <PageLinks onClick={() => navigate("/")}>Menu</PageLinks>
+      <PageLinks onClick={() => navigate("/orders")}>Orders</PageLinks>
+      <PageLinks onClick={() => setOpenCart(!openCart)}>Cart</PageLinks>
     </MainContainer>
-}
+  );
+};
 
-export default Navigation; 
+export default Navigation;
